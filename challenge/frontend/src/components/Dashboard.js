@@ -2,9 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import OpenCases from "./OpenCases";
+import ClosedCases from "./ClosedCases";
+import TopComplaint from "./TopComplaint";
+import ComplaintsTable from "./ComplaintsTable";
 
-function Dashboard({ token }) {
+
+function Dashboard({ token, setToken }) {
   const [complaints, setComplaints] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchComplaints = async () => {
@@ -23,20 +30,24 @@ function Dashboard({ token }) {
     fetchComplaints();
   }, [token]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token"); 
+    setToken(null);                   
+    history.push("/login");           
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>All Complaints</h1>
-      <ul>
-        {complaints.map((complaint, index) => (
-          <li key={index}>
-            <strong>Type:</strong> {complaint.complaint_type} <br />
-            <strong>Description:</strong> {complaint.descriptor} <br />
-            <strong>Opened:</strong> {complaint.opendate} <br />
-            <strong>Borough:</strong> {complaint.borough}
-            <hr />
-          </li>
-        ))}
-      </ul>
+     <div style={{ padding: "20px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>Dashboard</h1>
+        <button onClick={handleLogout} style={{ height: "30px" }}>Logout</button>
+      </div>
+
+      <OpenCases token={token} />
+      <ClosedCases token={token} />
+      <TopComplaint token={token} />
+      <ComplaintsTable token={token} />
+      
     </div>
   );
 }

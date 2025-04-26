@@ -6,7 +6,7 @@ import './App.css';
 
 
 function App() {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(() => localStorage.getItem('token'));
 
   return (
     <Router>
@@ -15,7 +15,7 @@ function App() {
         <Login setToken={setToken} />
       </Route>
       <Route path="/dashboard">
-        {token ? <Dashboard token={token} /> : <Redirect to="/login" />}
+        {token ? <Dashboard token={token} setToken={setToken} /> : <Redirect to="/login" />}
       </Route>
       <Redirect to="/login" />
     </Switch>

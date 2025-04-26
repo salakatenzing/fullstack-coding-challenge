@@ -17,13 +17,16 @@ function Login({ setToken }) {
         username,
         password,
       });
-      console.log("Token:", response.data.token);
+    //   console.log("Token:", response.data.token);
       setToken(response.data.token);
+      localStorage.setItem('token', response.data.token);
       history.push("/dashboard"); 
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
+
+  
   return (
     <div style={{ padding: "20px" }}>
       <h1>Login</h1>
