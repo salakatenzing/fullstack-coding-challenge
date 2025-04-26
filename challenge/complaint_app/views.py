@@ -20,10 +20,17 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 class OpenCasesViewSet(viewsets.ModelViewSet):
-  http_method_names = ['get']
-  def list(self, request):
+   http_method_names = ['get']
+   serializer_class = ComplaintSerializer
+   def list(self, request):
     # Get only the open complaints from the user's district
-    return Response()
+      user_profile = UserProfile.objects.get(user=request.user)
+      user_district = user_profile.district.zfill(2)
+      search_key = "NYCC" + user_district
+
+      open_cases = Complaint.objects.filter(council_dist=search_key, closedate__isnull=True)
+      serializer = self.serializer_class(open_cases, many=True)
+      return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ClosedCasesViewSet(viewsets.ModelViewSet):
   http_method_names = ['get'] 
