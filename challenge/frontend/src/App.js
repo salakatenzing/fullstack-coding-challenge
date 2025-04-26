@@ -1,19 +1,25 @@
 import React, {useState} from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Login from './components/Login';
-import logo from './logo.svg';
+import Dashboard from './components/Dashboard';
 import './App.css';
+
 
 function App() {
   const [token, setToken] = useState(null);
 
   return (
-    <div className="App">
-      {!token ? (
+    <Router>
+    <Switch>
+      <Route path="/login">
         <Login setToken={setToken} />
-      ) : (
-        <h1>Welcome! (You are logged in)</h1>
-      )}
-    </div>
+      </Route>
+      <Route path="/dashboard">
+        {token ? <Dashboard token={token} /> : <Redirect to="/login" />}
+      </Route>
+      <Redirect to="/login" />
+    </Switch>
+  </Router>
   );
 }
 

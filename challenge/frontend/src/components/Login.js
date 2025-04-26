@@ -1,32 +1,29 @@
 
 
 import React, { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 
 function Login({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/login/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
+      const response = await axios.post("http://localhost:8000/login/", {
+        username,
+        password,
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        // console.log("Token:", data.token);
-        setToken(data.token);
-      } else {
-        console.error("Login failed");
-      }
+      console.log("Token:", response.data.token);
+      setToken(response.data.token);
+      history.push("/dashboard"); 
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Login failed:", error);
     }
   };
-
   return (
     <div style={{ padding: "20px" }}>
       <h1>Login</h1>
