@@ -3,6 +3,7 @@ import axios from "axios";
 
 function TopComplaint({ token }) {
   const [topComplaint, setTopComplaint] = useState("");
+  const [topComplaintCount, setTopComplaintCount] = useState();
 
   useEffect(() => {
     const fetchTopComplaint = async () => {
@@ -12,6 +13,8 @@ function TopComplaint({ token }) {
         });
         if (response.data.length > 0) {
           setTopComplaint(response.data[0].complaint_type);
+          setTopComplaintCount(response.data[0].count)
+          console.log(response.data[0].count)
         } else {
           setTopComplaint("No Complaints Found");
         }
@@ -25,7 +28,7 @@ function TopComplaint({ token }) {
 
   return (
     <div style={{ marginBottom: "10px" }}>
-      <h3>Top Complaint Type: {topComplaint}</h3>
+      <h3>Top Complaint Type: {topComplaint}, Count: {topComplaintCount}</h3>
     </div>
   );
 }

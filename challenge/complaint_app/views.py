@@ -11,17 +11,37 @@ class ComplaintViewSet(viewsets.ModelViewSet):
   serializer_class = ComplaintSerializer
   def list(self, request):
     # Get all complaints from the user's district
-    user_profile = UserProfile.objects.get(user=request.user)
-    #zfill pads left side string with zeros
-    user_district = user_profile.district.zfill(2)
-    search_key = "NYCC" + user_district
+        user_profile = UserProfile.objects.get(user=request.user)
+        #zfill pads left side string with zeros
+        user_district = user_profile.district.zfill(2)
+        search_key = "NYCC" + user_district
 
-    complaints = Complaint.objects.filter(council_dist=search_key)
-    count_complaints = complaints.count()
-    print(f"Complaints count: {count_complaints}")
-    serializer = self.serializer_class(complaints, many=True)
-    print()
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        complaints = Complaint.objects.filter(account=search_key)
+
+        count_complaints = complaints.count()
+        print(f"Complaints count: {count_complaints}")
+
+        serializer = self.serializer_class(complaints, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+  
+  # class ComplaintViewSet(viewsets.ModelViewSet):
+  #   http_method_names = ['get']
+  #   serializer_class = ComplaintSerializer
+
+  #   def list(self, request):
+  #       user_profile = UserProfile.objects.get(user=request.user)
+  #        #zfill pads left side string with zeros
+  #       user_district = user_profile.district.zfill(2)
+  #       search_key = "NYCC" + user_district
+
+  #       complaints = Complaint.objects.filter(account=search_key)
+
+  #       count_complaints = complaints.count()
+  #       print(f"Complaints count: {count_complaints}")
+
+  #       serializer = self.serializer_class(complaints, many=True)
+  #       return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class OpenCasesViewSet(viewsets.ModelViewSet):
    http_method_names = ['get']
