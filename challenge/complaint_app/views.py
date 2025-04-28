@@ -88,3 +88,17 @@ class TopComplaintTypeViewSet(viewsets.ModelViewSet):
         .order_by('-count')[:3]
     )
     return Response(top_types, status=status.HTTP_200_OK)
+  
+class ConstituentsComplaintsViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
+    serializer_class = ComplaintSerializer
+
+    def list(self, request):
+        user_profile = UserProfile.objects.get(user=request.user)
+        user_district = user_profile.district.zfill(2)
+        search_key = "NYCC" + user_district
+
+        complaints = Complaint.objects.filter(council_dist=search_key)
+
+        serializer = self.serializer_class(complaints, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
