@@ -1,4 +1,5 @@
 import React from "react";
+import '../../styles/ComplaintsTable.css';
 
 function ComplaintsTable({ complaints }) {
   if (!complaints || complaints.length === 0) {

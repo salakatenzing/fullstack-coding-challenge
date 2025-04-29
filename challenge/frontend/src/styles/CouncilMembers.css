@@ -1,0 +1,30 @@
+
+.council-members-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+
+  .council-members-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px;
+    scroll-snap-type: x mandatory;
+  }
+  
+
+
+  
+
+  .council-member-card {
+    flex: 0 0 auto;
+    border: 1px solid black;
+    padding: 1px;
+    width: 160px;
+    background-color: white;
+    border-radius: 6px;
+    scroll-snap-align: start;
+    font-size: 0.85rem;
+  }
+  

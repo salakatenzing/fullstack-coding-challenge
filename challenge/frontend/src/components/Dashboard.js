@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import OpenCases from "./OpenCases";
-import ClosedCases from "./ClosedCases";
-import TopComplaint from "./TopComplaint";
-import ComplaintsTable from "./ComplaintsTable";
-import ConstituentsComplaints from "./ConstituentsComplaints";
+import OpenCases from "./Complaints/OpenCases";
+import ClosedCases from "./Complaints/ClosedCases";
+import TopComplaint from "./Complaints/TopComplaint";
+import ComplaintsTable from "./Complaints/ComplaintsTable";
+import ConstituentsComplaints from "./Complaints/ConstituentsComplaints";
 
 function Dashboard({ token, setToken }) {
   const [openCasesCount, setOpenCasesCount] = useState(0);
   const [closedCasesCount, setClosedCasesCount] = useState(0);
   const [topComplaintType, setTopComplaintType] = useState("");
   const [complaints, setComplaints] = useState([]);
-  const [constituentsCount, setConstituentsCount] = useState(0);
+  // const [constituentsCount, setConstituentsCount] = useState(0);
   const [filter, setFilter] = useState("all");
 
   const history = useHistory();

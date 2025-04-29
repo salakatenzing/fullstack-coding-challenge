@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import Login from './components/Login';
+import Login from './components/Login/Login';
+import Homepage from "./components/Homepage/Homepage";
 import Dashboard from './components/Dashboard';
 import './App.css';
+import HeaderTitle from './components/HeaderTitle';
+import Footer from "./components/Homepage/Footer"
 
 
 function App() {
@@ -10,7 +13,11 @@ function App() {
 
   return (
     <Router>
-    <Switch>
+      <div className="app-container">
+      <HeaderTitle /> 
+
+      <Switch>
+    <Route path="/" exact component={Homepage} />
       <Route path="/login">
         <Login setToken={setToken} />
       </Route>
@@ -19,6 +26,8 @@ function App() {
       </Route>
       <Redirect to="/login" />
     </Switch>
+    <Footer />
+    </div>
   </Router>
   );
 }
