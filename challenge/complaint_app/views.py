@@ -49,7 +49,7 @@ class ClosedCasesViewSet(viewsets.ModelViewSet):
       user_district = user_profile.district.zfill(2)
       search_key = "NYCC" + user_district
 
-      closed_cases = Complaint.objects.filter(council_dist=search_key, closedate__isnull=False)
+      closed_cases = Complaint.objects.filter(account=search_key, closedate__isnull=False)
       #debugging check for all:closed
       # count_complaints = closed_cases.count()
       # print(f"Complaints count: {count_complaints}")
@@ -66,7 +66,7 @@ class TopComplaintTypeViewSet(viewsets.ModelViewSet):
 
     top_types = (
         Complaint.objects
-        .filter(council_dist=search_key)
+        .filter(account=search_key)
         .values('complaint_type')
         .annotate(count=Count('complaint_type'))
         .order_by('-count')[:3]
