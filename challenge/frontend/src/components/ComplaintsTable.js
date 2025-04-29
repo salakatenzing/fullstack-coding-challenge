@@ -19,7 +19,8 @@ function ComplaintsTable({ complaints }) {
             <th>City</th>
             <th>Zip</th>
             <th>Community Board</th>
-            <th>District (Account)</th>
+            <th>Problem Location (Account District)</th>
+            <th>Complainer's District</th> 
           </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@ function ComplaintsTable({ complaints }) {
               <td>{complaint.zip}</td>
               <td>{complaint.community_board}</td>
               <td>{complaint.account}</td>
+              <td>{complaint.council_dist}</td>
             </tr>
           ))}
         </tbody>
