@@ -7,9 +7,9 @@ function ComplaintsTable({ complaints }) {
   }
 
   return (
-    <div>
-      <h2>Complaints List</h2>
-      <table>
+    <div className="complaints-container">
+      <h2 className="complaints-title">Complaints List</h2>
+      <table className="complaints-table">
         <thead>
           <tr>
             <th>Type</th>

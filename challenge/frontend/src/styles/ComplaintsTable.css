@@ -1,0 +1,44 @@
+.complaints-container {
+    margin-top: 30px;
+    overflow-x: auto;
+    padding: 10px;
+  }
+  
+  .complaints-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .complaints-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    border: 1px solid #ccc;
+  }
+  
+  .complaints-table th,
+  .complaints-table td {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  
+  .complaints-table th {
+    /* background-color: #003366; */
+    background-color: #4d7cbf;
+
+    color: white;
+  }
+  
+  .complaints-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .complaints-table tbody tr:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+  }
+  

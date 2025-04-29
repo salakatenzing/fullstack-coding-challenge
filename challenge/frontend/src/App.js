@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Login from './components/Login/Login';
 import Homepage from "./components/Homepage/Homepage";
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
 import HeaderTitle from './components/HeaderTitle';
 import Footer from "./components/Homepage/Footer"

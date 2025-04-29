@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import OpenCases from "./Complaints/OpenCases";
-import ClosedCases from "./Complaints/ClosedCases";
-import TopComplaint from "./Complaints/TopComplaint";
-import ComplaintsTable from "./Complaints/ComplaintsTable";
-import ConstituentsComplaints from "./Complaints/ConstituentsComplaints";
+import OpenCases from "../Complaints/OpenCases";
+import ClosedCases from "../Complaints/ClosedCases";
+import TopComplaint from "../Complaints/TopComplaint";
+import ComplaintsTable from "../Complaints/ComplaintsTable";
+import ConstituentsComplaints from "../Complaints/ConstituentsComplaints";
 
 function Dashboard({ token, setToken }) {
   const [openCasesCount, setOpenCasesCount] = useState(0);
@@ -93,7 +93,7 @@ function Dashboard({ token, setToken }) {
         <button onClick={handleLogout}>Logout</button>
       </div>
 
-      <div style={{gap: "30px", marginTop: "20px" }}>
+      <div className="dashboard-cards">
         <OpenCases count={openCasesCount} setFilter={setFilter} />
         <ClosedCases count={closedCasesCount} setFilter={setFilter} />
         <TopComplaint topComplaintType={topComplaintType} setFilter={setFilter}/>
