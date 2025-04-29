@@ -14,14 +14,13 @@ function Dashboard({ token, setToken }) {
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
-  const initialFilter = queryParams.get('filter') || "all";
 
   const [openCasesCount, setOpenCasesCount] = useState(0);
   const [closedCasesCount, setClosedCasesCount] = useState(0);
   const [topComplaintType, setTopComplaintType] = useState("");
   const [complaints, setComplaints] = useState([]);
   // const [constituentsCount, setConstituentsCount] = useState(0);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState(queryParams.get('filter') || "all");
   
 
 
