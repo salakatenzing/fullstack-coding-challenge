@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-      <HeaderTitle /> 
+      <HeaderTitle token={token} setToken={setToken}/> 
 
       <Switch>
     <Route path="/" exact component={Homepage} />

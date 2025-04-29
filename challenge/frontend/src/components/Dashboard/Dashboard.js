@@ -6,6 +6,7 @@ import ClosedCases from "../Complaints/ClosedCases";
 import TopComplaint from "../Complaints/TopComplaint";
 import ComplaintsTable from "../Complaints/ComplaintsTable";
 import ConstituentsComplaints from "../Complaints/ConstituentsComplaints";
+import "../../styles/Dashboard.css"
 
 function Dashboard({ token, setToken }) {
   const [openCasesCount, setOpenCasesCount] = useState(0);
@@ -74,11 +75,7 @@ function Dashboard({ token, setToken }) {
     fetchComplaints(filter);   
   }, [filter]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-    history.push("/login");
-  };
+ 
 
   const filteredComplaints = complaints.filter((complaint) => {
     if (filter === "open") return !complaint.closedate;
@@ -87,23 +84,34 @@ function Dashboard({ token, setToken }) {
   });
 
   return (
-    <div style={{ padding: "20px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1>Dashboard</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
+    <div className="dashboard-container">
+  <div className="dashboard-header">
+    <h1 className="dash-title">Dashboard</h1>
+  </div>
 
-      <div className="dashboard-cards">
-        <OpenCases count={openCasesCount} setFilter={setFilter} />
-        <ClosedCases count={closedCasesCount} setFilter={setFilter} />
-        <TopComplaint topComplaintType={topComplaintType} setFilter={setFilter}/>
-        <ConstituentsComplaints  setFilter={setFilter} />
-      </div>
-
-      <div style={{ marginTop: "30px" }}>
-        <ComplaintsTable complaints={filteredComplaints} />
-      </div>
+  <div className="dashboard-cards">
+    <div className="dashboard-card">
+      <OpenCases count={openCasesCount} setFilter={setFilter} />
     </div>
+
+    <div className="dashboard-card">
+      <ClosedCases count={closedCasesCount} setFilter={setFilter} />
+    </div>
+
+    <div className="dashboard-card">
+      <TopComplaint topComplaintType={topComplaintType} setFilter={setFilter} />
+    </div>
+
+    <div className="dashboard-card">
+      <ConstituentsComplaints setFilter={setFilter} />
+    </div>
+  </div>
+
+  <div className="dashboard-table">
+    <ComplaintsTable complaints={filteredComplaints} />
+  </div>
+</div>
+
   );
 }
 

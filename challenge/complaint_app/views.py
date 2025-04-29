@@ -4,6 +4,7 @@ from .serializers import UserSerializer, UserProfileSerializer, ComplaintSeriali
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Count
+from rest_framework.permissions import AllowAny
 # Create your views here.
 
 class ComplaintViewSet(viewsets.ModelViewSet):
@@ -24,23 +25,6 @@ class ComplaintViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(complaints, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
   
-  # class ComplaintViewSet(viewsets.ModelViewSet):
-  #   http_method_names = ['get']
-  #   serializer_class = ComplaintSerializer
-
-  #   def list(self, request):
-  #       user_profile = UserProfile.objects.get(user=request.user)
-  #        #zfill pads left side string with zeros
-  #       user_district = user_profile.district.zfill(2)
-  #       search_key = "NYCC" + user_district
-
-  #       complaints = Complaint.objects.filter(account=search_key)
-
-  #       count_complaints = complaints.count()
-  #       print(f"Complaints count: {count_complaints}")
-
-  #       serializer = self.serializer_class(complaints, many=True)
-  #       return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class OpenCasesViewSet(viewsets.ModelViewSet):
@@ -102,3 +86,8 @@ class ConstituentsComplaintsViewSet(viewsets.ModelViewSet):
 
         serializer = self.serializer_class(complaints, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class CouncilMembersViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = UserProfile.objects.select_related('user').all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [AllowAny]
