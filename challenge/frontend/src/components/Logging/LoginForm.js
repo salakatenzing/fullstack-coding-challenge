@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../../styles/Login.css"
@@ -23,6 +23,12 @@ function LoginForm({ setToken }) {
       alert("Invalid username or password");
     }
   };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      history.push("/dashboard");
+    }
+  }, [history]);
 
   return (
     <div className="login-page">

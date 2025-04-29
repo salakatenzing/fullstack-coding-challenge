@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import OpenCases from "../Complaints/OpenCases";
 import ClosedCases from "../Complaints/ClosedCases";
 import TopComplaint from "../Complaints/TopComplaint";
@@ -9,14 +9,22 @@ import ConstituentsComplaints from "../Complaints/ConstituentsComplaints";
 import "../../styles/Dashboard.css"
 
 function Dashboard({ token, setToken }) {
+
+  const history = useHistory();
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const initialFilter = queryParams.get('filter') || "all";
+
   const [openCasesCount, setOpenCasesCount] = useState(0);
   const [closedCasesCount, setClosedCasesCount] = useState(0);
   const [topComplaintType, setTopComplaintType] = useState("");
   const [complaints, setComplaints] = useState([]);
   // const [constituentsCount, setConstituentsCount] = useState(0);
   const [filter, setFilter] = useState("all");
+  
 
-  const history = useHistory();
+
   
   const fetchComplaints = async (filterType) => {
     const endpointMap = {
@@ -26,7 +34,7 @@ function Dashboard({ token, setToken }) {
       constituents: "/api/complaints/constituentsComplaints/",
     };
   
-    const endpoint = endpointMap[filterType] || endpointMap["all"]; // fallback to 'all'
+    const endpoint = endpointMap[filterType] || endpointMap["all"];
   
     try {
       const response = await axios.get(`http://localhost:8000${endpoint}`, {
@@ -60,7 +68,7 @@ function Dashboard({ token, setToken }) {
         topRes.data.length > 0 ? topRes.data[0].complaint_type : "N/A"
       );
 
-      fetchComplaints("all");
+      // fetchComplaints("all");
 
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
@@ -72,8 +80,9 @@ function Dashboard({ token, setToken }) {
   }, [token]);
 
   useEffect(() => {
-    fetchComplaints(filter);   
-  }, [filter]);
+    fetchComplaints(filter);
+    history.replace(`/dashboard?filter=${filter}`); 
+  }, [filter, history]);
 
  
 

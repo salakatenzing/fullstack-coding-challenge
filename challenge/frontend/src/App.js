@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import Login from './components/Login/Login';
+import LoginPage from './components/Logging/Login';
 import Homepage from "./components/Homepage/Homepage";
 import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
@@ -19,7 +19,7 @@ function App() {
       <Switch>
     <Route path="/" exact component={Homepage} />
       <Route path="/login">
-        <Login setToken={setToken} />
+        <LoginPage setToken={setToken} />
       </Route>
       <Route path="/dashboard">
         {token ? <Dashboard token={token} setToken={setToken} /> : <Redirect to="/login" />}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "./Footer"
 import "../../styles/Homepage.css"
@@ -10,6 +10,13 @@ function Homepage() {
   const handleLoginClick = () => {
     history.push("/login");
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      history.push("/dashboard");
+    }
+  }, [history]);
 
   return (
     <div className="homepage-container">
